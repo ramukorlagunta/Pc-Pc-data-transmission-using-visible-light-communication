@@ -1,0 +1,27 @@
+import time
+import serial
+
+# Configure your serial port here
+SERIAL_PORT = 'COM4'  
+BAUD_RATE = 9600
+
+# Initialize serial connection
+ser = serial.Serial(SERIAL_PORT, BAUD_RATE)
+
+def read_data():
+    """
+    Read and decode data from the light sensor.
+    """
+    received_data = ""
+    while True:
+        if ser.in_waiting > 0:
+            bit = ser.read(1)
+            if bit == b'1':
+                received_data += '1'
+            elif bit == b'0':
+                received_data += '0'
+            # You can add additional logic here to detect end of transmission
+            print(f"Received Data: {received_data}")
+
+if __name__ == "__main__":
+    read_data()

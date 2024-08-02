@@ -1,0 +1,25 @@
+import time
+import serial
+
+# Configure your serial port here
+SERIAL_PORT = 'COM3'  # Replace with your port
+BAUD_RATE = 9600
+
+# Initialize serial connection
+ser = serial.Serial(SERIAL_PORT, BAUD_RATE)
+
+def send_data(data):
+    """
+    Transmit data using the LED.
+    """
+    for bit in data:
+        if bit == '1':
+            ser.write(b'1')  # Turn on LED
+        else:
+            ser.write(b'0')  # Turn off LED
+        time.sleep(0.1)  # Adjust timing as needed
+
+if __name__ == "__main__":
+    data = '101010'  # Example data to send
+    send_data(data)
+    ser.close()
